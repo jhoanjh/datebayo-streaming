@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DATEBAYO | Streaming Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--or:#ff7b00;--bl:#00d9ff;--gr:#25D366;--r:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#050508;color:#fff;min-height:100vh;overflow-x:hidden}
+
+/* FONDO */
+.bg{position:fixed;inset:0;z-index:-5;transform:scale(1.05);filter:blur(4px);
+background:linear-gradient(180deg,rgba(3,3,7,.72),rgba(3,3,7,.91) 55%,rgba(3,3,7,.98)),url('https://www.dropbox.com/scl/fi/5hmx61tjp97pclldr0490/anime-moon-landscape.jpg?rlkey=t69vfwrpw0stoiaq22my822ee&st=1ijckwl4&raw=1') center/cover;
+animation:bgMove 18s ease-in-out infinite alternate}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 25%,rgba(255,106,0,.16),transparent 30%),radial-gradient(circle at 85% 70%,rgba(0,217,255,.14),transparent 32%)}
+@keyframes bgMove{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.08) translate(8px,5px)}}
+
+/* HEADER CON LEÓN */
+header{max-width:1000px;margin:auto;padding:70px 20px 40px;text-align:center}
+.crown{position:relative;width:190px;height:190px;margin:0 auto 18px;display:grid;place-items:center}
+.mane{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:spin 40s linear infinite;
+filter:drop-shadow(0 0 6px var(--or)) drop-shadow(0 0 18px rgba(255,106,0,.55))}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-logo{position:relative;width:118px;height:118px;border-radius:50%;object-fit:cover;border:2px solid #fff;
+box-shadow:0 0 25px rgba(255,106,0,.45),0 0 55px rgba(0,217,255,.2);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px)}}
+h1{font-size:clamp(3rem,10vw,6rem);font-weight:900;letter-spacing:-3px;line-height:.95;margin-bottom:16px;
+background:linear-gradient(135deg,#fff 30%,#ff9a3d 70%,#ff6a00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{display:inline-flex;align-items:center;gap:8px;color:#ddd;font-size:.75rem;font-weight:700;letter-spacing:1.5px;padding:9px 16px;
+border:1px solid rgba(0,217,255,.25);background:rgba(0,217,255,.04);border-radius:999px;backdrop-filter:blur(12px)}
+.subtitle::before{content:"";width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{transform:scale(1.5);opacity:.6}}
+
+/* CUPÓN */
+.promo{width:min(540px,calc(100% - 30px));margin:0 auto 50px;padding:1px;border-radius:16px;
+background:linear-gradient(110deg,#ff6a00,rgba(255,255,255,.1),#00d9ff,#ff6a00);background-size:300% 300%;animation:flow 6s linear infinite}
+@keyframes flow{50%{background-position:100% 50%}}
+.promo-in{padding:14px;background:rgba(8,8,12,.95);border-radius:15px}
+.ig{display:flex;gap:8px;padding:5px;background:rgba(255,255,255,.04);border:1px solid rgba(0,217,255,.14);border-radius:12px}
+.ig:focus-within{border-color:var(--or);box-shadow:0 0 25px rgba(255,106,0,.15)}
+.ig input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;padding:12px;font:800 .78rem Inter;text-transform:uppercase}
+.ig input::placeholder{color:#71717a}
+.btn-a{border:0;padding:0 22px;border-radius:9px;cursor:pointer;font:900 .72rem Inter;color:#111;background:var(--or);transition:.3s}
+.btn-a:hover{background:#ff983d;transform:translateY(-2px)}
+
+/* GRID Y TARJETAS */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:1180px;margin:auto;padding:0 20px 90px}
+.card{position:relative;overflow:hidden;text-align:center;padding:26px 20px 20px;border-radius:var(--r);
+background:linear-gradient(145deg,rgba(24,24,31,.72),rgba(7,7,12,.92));border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(16px);
+transition:transform .35s,border-color .3s,box-shadow .35s}
+.card::before{content:"";position:absolute;top:0;left:12%;right:12%;height:2px;background:linear-gradient(90deg,transparent,#ff6a00,#00d9ff,transparent);opacity:.3;transition:.3s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,106,0,.45);box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 30px rgba(255,106,0,.1)}
+.card:hover::before{opacity:1}
+.watermark{position:absolute;right:-18px;bottom:-18px;width:100px;height:100px;opacity:.06;pointer-events:none}
+.badge-top{position:absolute;top:10px;left:10px;font-size:.58rem;font-weight:800;color:#ffb020;border:1px solid rgba(255,176,32,.4);background:rgba(255,176,32,.08);padding:4px 8px;border-radius:999px}
+.card img,.ico{width:60px;height:60px;margin-bottom:16px;object-fit:contain}
+.ico{display:grid;place-items:center;margin-inline:auto;font-size:2rem;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(0,217,255,.2)}
+.card h3{font-size:1rem;font-weight:800;margin-bottom:10px}
+.stock{display:inline-flex;padding:5px 10px;border-radius:999px;font-size:.6rem;font-weight:900;margin-bottom:8px;border:1px solid;text-transform:uppercase}
+.hi{color:#4ade80;background:rgba(74,222,128,.06);border-color:rgba(74,222,128,.3)}
+.lo{color:#ffb020;background:rgba(255,176,32,.06);border-color:rgba(255,176,32,.35);animation:warn 2s infinite}
+@keyframes warn{50%{box-shadow:0 0 16px rgba(255,176,32,.25)}}
+.price{font-size:2rem;font-weight:900;color:var(--or);margin:6px 0 18px;letter-spacing:-1px}
+.price.q{font-size:1.7rem;margin-top:14px}
+.buy{position:relative;width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,217,255,.45);background:rgba(0,217,255,.03);color:#fff;font:900 .72rem Inter;cursor:pointer;transition:.3s}
+.buy:hover{background:#00c8ff;color:#031017;transform:translateY(-2px);box-shadow:0 0 25px rgba(0,217,255,.3)}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);justify-content:center;align-items:center;padding:20px}
+.mbox{width:min(420px,100%);padding:34px 26px 22px;text-align:center;border-radius:24px;background:linear-gradient(145deg,rgba(25,25,32,.97),rgba(5,5,9,.99));border:1px solid rgba(0,217,255,.25);box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 40px rgba(255,106,0,.12);animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(16px)}}
+.mbox h2{font-size:1.5rem;font-weight:900}
+.confirm{display:block;margin-top:18px;padding:14px;border-radius:12px;background:var(--or);color:#111;text-decoration:none;font-size:.75rem;font-weight:900;text-transform:uppercase;transition:.3s}
+.confirm:hover{background:#ff983d;transform:translateY(-2px)}
+.cancel{background:transparent;border:0;color:#71717a;cursor:pointer;padding:14px;font:800 .7rem Inter;margin-top:4px}
+.cancel:hover{color:#fff}
+
+/* AVATAR LEÓN NEÓN (fijo en pantalla) */
+.avatar{position:fixed;left:18px;bottom:18px;width:74px;height:74px;z-index:9000;cursor:pointer;border:0;background:rgba(8,8,12,.85);border-radius:50%;
+box-shadow:0 0 0 2px rgba(255,123,0,.7),0 0 18px var(--or),0 0 42px rgba(255,106,0,.45);animation:bob 3.4s ease-in-out infinite;transition:.3s}
+.avatar:hover{transform:scale(1.1)}
+.avatar svg{width:100%;height:100%;filter:drop-shadow(0 0 4px var(--or))}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+
+/* BURBUJA DE COMPRA */
+.toast{position:fixed;left:104px;bottom:34px;z-index:9001;max-width:min(300px,calc(100vw - 130px));display:flex;align-items:center;gap:9px;
+padding:9px 13px;border-radius:14px 14px 14px 4px;background:rgba(8,8,12,.92);backdrop-filter:blur(12px);
+border:1px solid rgba(0,217,255,.35);box-shadow:0 0 18px rgba(0,217,255,.18),0 8px 24px rgba(0,0,0,.5);
+opacity:0;transform:translateY(10px) scale(.96);pointer-events:none;transition:opacity .5s,transform .5s}
+.toast.on{opacity:1;transform:none}
+.toast .ti{font-size:1.25rem;flex:none}
+.toast .tt{font-size:.74rem;line-height:1.3;font-weight:600;color:#e4e4e7}
+.toast b{color:var(--or);font-weight:800}
+.toast small{display:block;color:#71717a;font-size:.64rem;margin-top:1px}
+
+/* WHATSAPP */
+.wa{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;z-index:10000;text-decoration:none;
+background:radial-gradient(circle,#35e878,#25D366 55%,#12a94d);border:2px solid rgba(255,255,255,.7);
+box-shadow:0 0 10px #25D366,0 0 34px rgba(37,211,102,.6);animation:wan 2s ease-in-out infinite;transition:.3s}
+.wa:hover{transform:translateY(-6px) scale(1.08)}
+.wa svg{width:34px;height:34px;fill:#fff}
+@keyframes wan{50%{box-shadow:0 0 14px #25D366,0 0 55px rgba(37,211,102,.8)}}
+
+footer{text-align:center;padding:20px 20px 35px}
+footer p{font-size:.65rem;font-weight:800;letter-spacing:3px;color:#71717a}
+
+@media(max-width:600px){
+header{padding:50px 15px 30px}
+.crown{width:160px;height:160px}.hero-logo{width:98px;height:98px}
+.ig{flex-direction:column}.ig input{text-align:center}.btn-a{height:42px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:0 12px 100px}
+.card{padding:22px 10px 14px;border-radius:16px}
+.card h3{font-size:.8rem}.stock{font-size:.5rem;padding:5px 7px}
+.price{font-size:1.5rem}.price.q{font-size:1.2rem}
+.buy{font-size:.6rem;padding:11px 4px}
+.avatar{width:58px;height:58px;left:12px;bottom:14px}
+.toast{left:78px;bottom:20px;max-width:calc(100vw - 160px);padding:7px 10px}
+.toast .tt{font-size:.68rem}
+.wa{width:54px;height:54px;right:12px;bottom:14px}
+}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* ===== NEÓN MODERNO ===== */
+body::before{content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;
+background-image:linear-gradient(rgba(0,217,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,217,255,.07) 1px,transparent 1px);
+background-size:46px 46px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%)}
+.crown .ring{position:absolute;border-radius:50%;pointer-events:none}
+.r1{inset:0;border:2px solid var(--or);box-shadow:0 0 14px var(--or),0 0 40px rgba(255,106,0,.5),inset 0 0 18px rgba(255,106,0,.35);animation:ringP 3s ease-in-out infinite alternate}
+.r2{inset:14px;border:2px dashed var(--bl);box-shadow:0 0 12px var(--bl);opacity:.85;animation:spin 18s linear infinite}
+.r3{inset:-12px;border:1px solid rgba(0,217,255,.35);box-shadow:0 0 25px rgba(0,217,255,.35);animation:ringP 4s ease-in-out infinite alternate-reverse}
+@keyframes ringP{from{opacity:.55;transform:scale(.97)}to{opacity:1;transform:scale(1.03)}}
+h1{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#fff;letter-spacing:-2px;
+text-shadow:0 0 6px #fff,0 0 14px var(--or),0 0 32px var(--or),0 0 64px rgba(255,106,0,.7);animation:flicker 5s infinite}
+@keyframes flicker{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.78}}
+.subtitle{color:#bff4ff;border-color:var(--bl);box-shadow:0 0 14px rgba(0,217,255,.45),inset 0 0 12px rgba(0,217,255,.12);text-shadow:0 0 8px var(--bl)}
+.promo{box-shadow:0 0 28px rgba(255,106,0,.3),0 0 60px rgba(0,217,255,.15)}
+.card{border-color:rgba(0,217,255,.22);box-shadow:0 0 0 1px rgba(255,106,0,.05),0 10px 40px rgba(0,0,0,.35),inset 0 0 28px rgba(0,217,255,.04);
+opacity:0;animation:rev .7s ease forwards}
+@keyframes rev{from{opacity:0;transform:translateY(26px) scale(.96)}to{opacity:1;transform:none}}
+.card::before{opacity:.8;box-shadow:0 0 12px #ff6a00,0 0 20px #00d9ff}
+.card::after{content:"";position:absolute;top:-120%;left:-80%;width:45%;height:320%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:rotate(25deg);transition:.8s;pointer-events:none}
+.card:hover::after{left:140%}
+.card:hover{border-color:var(--or);box-shadow:0 0 18px rgba(255,106,0,.55),0 0 50px rgba(255,106,0,.25),0 0 80px rgba(0,217,255,.12),inset 0 0 30px rgba(255,106,0,.07)}
+.card img,.ico{filter:drop-shadow(0 0 10px rgba(0,217,255,.35))}
+.card:hover img{transform:scale(1.12) rotate(2deg)}
+.ico{border-color:var(--bl);box-shadow:0 0 14px rgba(0,217,255,.3),inset 0 0 12px rgba(0,217,255,.1)}
+.card h3{text-shadow:0 0 10px rgba(255,255,255,.25)}
+.price{text-shadow:0 0 8px rgba(255,123,0,.7),0 0 22px rgba(255,123,0,.4)}
+.badge-top{box-shadow:0 0 12px rgba(255,176,32,.45);text-shadow:0 0 6px #ffb020}
+.stock{box-shadow:0 0 10px currentColor}
+.buy{border-color:var(--bl);box-shadow:0 0 12px rgba(0,217,255,.4),inset 0 0 12px rgba(0,217,255,.12);text-shadow:0 0 8px var(--bl);overflow:hidden}
+.buy::before{content:"";position:absolute;top:0;left:-130%;width:80%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:.7s}
+.buy:hover::before{left:140%}
+.buy span{position:relative;z-index:1}
+.buy:hover{text-shadow:none;box-shadow:0 0 20px var(--bl),0 0 50px rgba(0,217,255,.45)}
+.btn-a,.confirm{box-shadow:0 0 16px rgba(255,123,0,.55)}
+.mbox{border-color:var(--bl);box-shadow:0 0 30px rgba(0,217,255,.35),0 0 80px rgba(255,106,0,.2),0 30px 90px rgba(0,0,0,.7)}
+#m-price{text-shadow:0 0 18px rgba(255,123,0,.6)}
+.avatar{background:radial-gradient(circle,#10101a,#06060a);box-shadow:0 0 0 2px var(--bl),0 0 16px var(--bl),0 0 40px rgba(0,217,255,.5),0 0 60px rgba(255,106,0,.25)}
+.avatar svg{filter:drop-shadow(0 0 5px var(--bl))}
+.toast{border-color:var(--bl);border-left:3px solid var(--or);box-shadow:0 0 20px rgba(0,217,255,.35),0 0 40px rgba(255,106,0,.15),0 8px 24px rgba(0,0,0,.5)}
+.toast b{text-shadow:0 0 8px rgba(255,123,0,.6)}
+.wa::before,.wa::after{content:"";position:absolute;border-radius:50%;border:2px solid rgba(37,211,102,.65);animation:wr 2s ease-out infinite}
+.wa::before{inset:-7px}.wa::after{inset:-14px;border-width:1px;animation-delay:.4s}
+@keyframes wr{0%{transform:scale(.85);opacity:.9}70%,100%{transform:scale(1.35);opacity:0}}
+.wa svg{position:relative;z-index:2}
+footer p{text-shadow:0 0 10px rgba(0,217,255,.35)}
+
+/* ===== FILTROS ===== */
+.filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:1180px;margin:0 auto 26px;padding:0 20px}
+.chip{cursor:pointer;padding:11px 20px;border-radius:999px;font:800 .78rem Inter;color:#d4f6ff;background:rgba(0,217,255,.04);
+border:1px solid rgba(0,217,255,.35);box-shadow:0 0 12px rgba(0,217,255,.18),inset 0 0 10px rgba(0,217,255,.06);text-shadow:0 0 8px rgba(0,217,255,.5);transition:.3s;backdrop-filter:blur(10px)}
+.chip:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(0,217,255,.45)}
+.chip.on{color:#111;background:var(--or);border-color:var(--or);text-shadow:none;box-shadow:0 0 18px var(--or),0 0 42px rgba(255,106,0,.45)}
+.chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(max-width:600px){
+.filters{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding:4px 14px 12px;margin-bottom:14px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:10px 16px;font-size:.72rem}
+}
+
+.card.soon{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px dashed rgba(0,217,255,.5);background:rgba(0,217,255,.025)}
+.card.soon:hover{transform:none;border-color:var(--bl);box-shadow:0 0 22px rgba(0,217,255,.35),inset 0 0 30px rgba(0,217,255,.07)}
+.soon-ico{animation:soonP 2.2s ease-in-out infinite}
+@keyframes soonP{50%{transform:scale(1.12);box-shadow:0 0 26px rgba(0,217,255,.55)}}
+.soon-txt{color:#a1a1aa;font-size:.76rem;line-height:1.5;margin-bottom:14px;max-width:200px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- AVATAR NEON -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="avatar" viewBox="0 0 100 100">
+<circle cx="50" cy="50" r="38" fill="#07070c" stroke="#00d9ff" stroke-width="3"/>
+<path d="M50 6v10M50 84v10M6 50h10M84 50h10" stroke="#ff7b00" stroke-width="3" stroke-linecap="round"/>
+<rect x="26" y="38" width="48" height="20" rx="10" fill="none" stroke="#ff7b00" stroke-width="3"/>
+<circle class="eye" cx="40" cy="48" r="4.5" fill="#00d9ff"/>
+<circle class="eye" cx="60" cy="48" r="4.5" fill="#00d9ff"/>
+<path d="M39 68q11 9 22 0" fill="none" stroke="#00d9ff" stroke-width="3" stroke-linecap="round"/>
+</symbol>
+</svg>
+
+<header>
+  <div class="crown">
+    <i class="ring r1"></i><i class="ring r2"></i><i class="ring r3"></i>
+    <img src="https://www.dropbox.com/scl/fi/u1c640ot3d4dn5vgcp0lw/WhatsApp-Image-2026-06-01-at-8.02.29-PM.jpeg?rlkey=sy9pa9g8mnwco98ojun4fciwh&st=avznwe2f&raw=1" class="hero-logo" alt="Logo DATEBAYO">
+  </div>
+  <h1>DATEBAYO</h1>
+  <p class="subtitle">SISTEMA DE STREAMING PREMIUM</p>
+</header>
+
+<div class="promo"><div class="promo-in">
+  <div class="ig">
+    <input type="text" id="coupon-input" placeholder="INGRESA TU CUPÓN DE DESCUENTO">
+    <button class="btn-a" onclick="applyDiscount()">APLICAR</button>
+  </div>
+  <p id="msg" style="text-align:center;margin-top:10px;font-weight:800;font-size:.75rem"></p>
+</div></div>
+
+<nav class="filters" id="filters" aria-label="Categorías">
+  <button class="chip on" data-f="all">Todos</button>
+  <button class="chip" data-f="stream">🎬 Streaming</button>
+  <button class="chip" data-f="estudio">📚 Estudio</button>
+  <button class="chip" data-f="tec">💻 Tecnología</button>
+  <button class="chip" data-f="otros">🎮 Gaming y más</button>
+</nav>
+
+<main class="grid" id="grid"></main>
+
+<a href="https://wa.me/51982206831?text=Hola%2C%20necesito%20ayuda" class="wa" target="_blank" aria-label="Contactar por WhatsApp">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 3.2c-7.08 0-12.82 5.74-12.82 12.82 0 2.26.59 4.47 1.71 6.4L3.08 28.8l6.55-1.72a12.77 12.77 0 0 0 6.38 1.7h.01c7.07 0 12.82-5.75 12.82-12.83S23.08 3.2 16.01 3.2zm0 23.39h-.01c-2.02 0-4-.54-5.73-1.55l-.41-.24-3.89 1.02 1.04-3.79-.27-.43a10.61 10.61 0 0 1-1.63-5.59c0-5.84 4.75-10.59 10.6-10.59 2.83 0 5.49 1.1 7.49 3.1a10.53 10.53 0 0 1 3.1 7.5c0 5.83-4.75 10.57-10.59 10.57zm5.8-7.93c-.32-.16-1.88-.93-2.17-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.6-.95-.85-1.6-1.9-1.79-2.22-.18-.32-.02-.49.14-.65.15-.15.32-.37.48-.55.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.71-.97-2.34-.25-.61-.51-.53-.71-.54h-.61c-.21 0-.55.08-.84.4-.29.32-1.1 1.07-1.1 2.61s1.13 3.03 1.29 3.24c.16.21 2.22 3.39 5.38 4.76.75.32 1.34.51 1.8.65.76.24 1.45.2 2 .12.61-.09 1.88-.77 2.14-1.52.26-.75.26-1.39.18-1.52-.08-.13-.29-.21-.61-.37z"/></svg>
+</a>
+
+<!-- AVATAR LEÓN + BURBUJA -->
+<button class="avatar" id="avatar" aria-label="León DATEBAYO"><svg><use href="#avatar"/></svg></button>
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="ti" id="t-ico"></span><span class="tt" id="t-txt"></span></div>
+
+<div id="modal" class="modal">
+  <div class="mbox">
+    <h2 id="m-title"></h2>
+    <div id="m-price" style="font-weight:900;font-size:3rem;color:var(--or);margin:10px 0;letter-spacing:-1px"></div>
+    <p style="color:var(--bl);margin-bottom:5px;font-weight:800;text-transform:uppercase;font-size:.72rem">✓ Selección confirmada</p>
+    <p style="color:#a1a1aa;margin-bottom:18px;font-size:.78rem;line-height:1.6">Te redirigiremos a WhatsApp para completar tu pedido de forma segura.</p>
+    <a id="m-confirm" class="confirm" target="_blank" onclick="closeModal()">IR A WHATSAPP</a>
+    <button class="cancel" onclick="closeModal()">CANCELAR</button>
+  </div>
+</div>
+
+<footer><p>DATEBAYO © 2026</p></footer>
+
+<script>
+/* ============ CONFIGURACIÓN ============ */
+const CODIGO_CUPON="SETIEMBRE2026";
+const PORCENTAJE_DESCUENTO=10;
+
+// Notificaciones flotantes
+const NOTIFICACIONES_ACTIVAS=true;
+const PRIMERA_NOTIF_MS=5000;          // primera burbuja: 5 segundos después de entrar
+const INTERVALO_NOTIF_MS=5*60*1000;   // luego una cada 5 minutos (cámbialo si quieres)
+const DURACION_NOTIF_MS=4500;         // tiempo visible
+
+/* ============ PRODUCTOS ============ */
+// price = precio mostrado | dp = data-price (base del descuento) | q = true -> "CONSULTAR"
+const WA="51982206831"; // tu número con código de Perú
+const wl=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+const P=[
+{n:"Netflix Perfil",cat:"stream",s:"Netflix",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",price:"12.00",dp:"12.00",link:wl("Hola, quiero comprar Netflix Perfil"),top:1,notif:"Perfil Netflix",emo:"🎬"},
+{n:"Netflix Completa",cat:"stream",s:"Netflix Completa",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWZnbxS_py0PQWiapYtEbAM_o8ihXCnrePhHJE0LNU0Q&s",price:"45.00",dp:"45.00",link:wl("Hola, quiero comprar Netflix Completa"),notif:"Netflix Completa"},
+{n:"Spotify Premium",cat:"stream",s:"Spotify",img:"https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",price:"10.00",dp:"10.00",link:wl("Hola, quiero comprar Spotify Premium"),top:1,notif:"Spotify Premium",emo:"🎧"},
+{n:"ChatGPT",cat:"estudio",s:"ChatGPT",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo7axtvumlbH98gnxtcbGbDUu-4FGDwNapW55gyJH4UA&s=10",price:"15.00",dp:"15.00",link:wl("Hola, quiero comprar ChatGPT"),notif:"ChatGPT"},
+{n:"Max Perfil",cat:"stream",s:"Max Perfil",img:"https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg",price:"7.50",dp:"7.50",low:1,link:wl("Hola, quiero comprar Max Perfil"),notif:"Perfil Max",emo:"🍿"},
+{n:"Disney Perfil",cat:"stream",s:"Disney Perfil",img:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",price:"7.50",dp:"7.50",link:wl("Hola, quiero comprar Disney Perfil"),notif:"Perfil Disney",emo:"🏰"},
+{n:"Prime Video",cat:"stream",s:"Prime Video",img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",price:"8.00",dp:"8.00",link:wl("Hola, quiero comprar Prime Video"),notif:"Prime Video",emo:"📺"},
+{n:"Crunchyroll",cat:"stream",s:"Crunchyroll",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQU6gyCL9hrOFlmRbWl_HOh3MoFNAqLxREDQ&s",price:"7.00",dp:"7.00",link:wl("Hola, quiero comprar Crunchyroll"),notif:"Crunchyroll",emo:"🍥"},
+{n:"Vix Perfil",cat:"stream",s:"Vix Perfil",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAiTHg3brwCfTOm3GyrsoQeck44yXwFCh6Iw&s",price:"5.00",dp:"5.00",low:1,link:wl("Hola, quiero comprar Vix Perfil"),notif:"Perfil Vix",emo:"📡"},
+{n:"YouTube Premium",cat:"stream",s:"YouTube Premium",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHPajj8ZIW45SsYxM2IFuvCSjJtx5wfLH44g&s",price:"7.00",dp:"7.00",link:wl("Hola, quiero comprar YouTube Premium"),notif:"YouTube Premium",emo:"▶️"},
+{n:"YouTube Familiar",cat:"stream",s:"YouTube Familiar",emo:"▶️",price:"9.00",dp:"9.00",link:wl("Hola, quiero comprar YouTube Familiar"),notif:"YouTube Familiar"},
+{n:"Canva PRO",cat:"estudio",s:"Canva PRO",img:"https://labelgrid.com/wp-content/uploads/2025/08/dsp-canva.svg",price:"5.00",dp:"5.00",link:wl("Hola, quiero comprar Canva PRO"),notif:"Canva PRO",emo:"🎨"},
+{n:"CapCut PRO",cat:"estudio",s:"CapCut PRO",img:"https://static.vecteezy.com/system/resources/previews/013/948/546/non_2x/capcut-logo-on-transparent-white-background-free-vector.jpg",price:"13.50",dp:"13.50",link:wl("Hola, quiero comprar CapCut PRO"),notif:"CapCut PRO"},
+{n:"Studocu",cat:"estudio",s:"Studocu",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkGxej9QUJF_JYKVUyLp5ZMIFbn9j7QEN1nlnibTcdUQ&s=10",price:"10.00",dp:"10.00",link:wl("Hola, quiero comprar Studocu"),notif:"Studocu"},
+{n:"Scribd",cat:"estudio",s:"Scribd",img:"https://play-lh.googleusercontent.com/jOCgCw0UEBHPuRv1ijMZbamDg8CgebMwPSMRipUsBeUB6XOknCpa9esNjJFVEHf0ID1Zr1dn6xHfkRC_MU8SKTk",price:"10.00",dp:"10.00",link:wl("Hola, quiero comprar Scribd"),notif:"Scribd"},
+{n:"Licencia Windows 11",cat:"tec",s:"Licencia Windows 11",img:"https://promart.vteximg.com.br/arquivos/ids/7766910/imageUrl_1.jpg?v=638406174359900000",q:1,link:wl("Hola, quiero consultar Licencia Windows 11"),notif:"Licencia Windows 11"}, // precio por definir
+{n:"TV Box Win",cat:"tec",s:"TV Box Win",img:"https://http2.mlstatic.com/D_NQ_NP_757861-MPE108052328737_032026-O.webp",price:"195.00",dp:"195.00",link:wl("Hola, quiero comprar TV Box Windows"),notif:"TV Box Windows"},
+{n:"Pase Booyah",cat:"otros",s:"Pase Booyah",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2lJfSqUy9BWlzeJo6y0B6pkKQ3NG24C1deg&s",price:"6.00",dp:"5.50",stock:"Stock: ilimitado",link:wl("Hola, quiero comprar Pase Booyah"),notif:"Pase Booyah",emo:"🔥"}, // NO MODIFICAR
+{n:"Diamantes FF",cat:"otros",s:"Diamantes FF",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt9zNUSQhlyJ346uaglyEC182hvD1O9P8v5g&s",q:1,stock:"Stock: Disponible",btn:"VER TIENDA",link:wl("Hola, quiero consultar Diamantes FF"),notif:"Diamantes FF",emo:"💎"},
+{n:"Servicio Doxeo",cat:"otros",s:"Servicio Doxeo",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvwk4hP3qmr6cmQfMAjvYPDSq3zwc7gusqHA&s",q:1,stock:"Stock: Disponible",btn:"CONSULTAR",link:wl("Hola, quiero consultar Servicio Doxeo"),notif:"Servicio Doxeo",emo:"🛠️"}
+];
+
+const grid=document.getElementById('grid');
+P.forEach(p=>{
+  const c=document.createElement('div');
+  c.className='card';
+  c.dataset.cat=p.cat;
+  c.dataset.price=p.q?"CONSULTA":p.dp;
+  const st=p.stock||(p.low?"POCAS DISPONIBLES":"DISPONIBLE");
+  c.innerHTML=
+    (p.top?'<span class="badge-top">🔥 Más vendido</span>':'')+
+        (p.img?`<img src="${p.img}" alt="${p.n}" loading="lazy">`:`<div class="ico">${p.emo}</div>`)+
+    `<h3>${p.n}</h3>`+
+    `<div class="stock ${p.low?'lo':'hi'}">${st}</div>`+
+    `<div class="price${p.q?' q':''}">${p.q?'CONSULTAR':'S/.'+p.price}</div>`+
+    `<button class="buy" data-name="${p.s}" data-link="${p.link}"><span>${p.btn||'COMPRAR'}</span></button>`;
+  c.style.animationDelay=(grid.children.length*0.06)+'s';
+  grid.appendChild(c);
+});
+
+
+/* Tarjetas "Próximamente" (una al final de cada filtro) */
+[["stream","Streaming"],["estudio","Estudio"],["tec","Tecnología"],["otros","Gaming y más"],["todos","la tienda"]].forEach(([k,nombre],j)=>{
+  const c=document.createElement('div');
+  c.className='card soon';
+  c.dataset.cat=k;
+  c.dataset.soon='1';
+  c.innerHTML='<div class="ico soon-ico">✨</div><h3>Próximamente</h3>'+
+    `<p class="soon-txt">Pronto agregaremos nuevos productos${k==='todos'?' a '+nombre:' en '+nombre}.</p>`+
+    '<div class="stock hi">Muy pronto</div>';
+  c.style.animationDelay=(grid.children.length*0.06)+'s';
+  grid.appendChild(c);
+});
+
+/* ============ FILTROS ============ */
+function aplicarFiltro(f){
+  let i=0;
+  document.querySelectorAll('.card').forEach(card=>{
+    const ver=f==='all'?(!card.dataset.soon||card.dataset.cat==='todos'):card.dataset.cat===f;
+    card.style.display=ver?'':'none';
+    if(ver){
+      card.style.animation='none';void card.offsetWidth;
+      card.style.animation='';card.style.animationDelay=(i++*0.05)+'s';
+    }
+  });
+}
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
+  aplicarFiltro(b.dataset.f);
+});
+
+/* ============ CUPÓN ============ */
+let isDiscountApplied=false;
+function applyDiscount(){
+  const code=document.getElementById('coupon-input').value.trim().toUpperCase();
+  const msg=document.getElementById('msg');
+  if(code===CODIGO_CUPON.toUpperCase()){
+    if(isDiscountApplied){msg.style.color='#00bfff';msg.innerText="EL CUPÓN YA ESTÁ APLICADO";return;}
+    isDiscountApplied=true;
+    msg.style.color='#ff7b00';
+    msg.innerText=`¡DESCUENTO APLICADO! -${PORCENTAJE_DESCUENTO}% EN TODO`;
+    const f=(100-PORCENTAJE_DESCUENTO)/100;
+    document.querySelectorAll('.card').forEach(card=>{
+      const base=parseFloat(card.dataset.price);
+      if(!isNaN(base)){
+        const final=(base*f).toFixed(2);
+        card.dataset.currentPrice=final;
+        const pr=card.querySelector('.price');
+        pr.innerHTML=`<span style="font-size:1rem;color:#71717a;text-decoration:line-through;margin-right:5px">S/.${base.toFixed(2)}</span>S/.${final}`;
+        pr.style.color='#00d9ff';
+        pr.style.textShadow='0 0 15px rgba(0,217,255,.35)';
+      }
+    });
+  }else{
+    msg.style.color='#ff3366';
+    msg.innerText="CÓDIGO INVÁLIDO";
+    setTimeout(()=>msg.innerText="",3000);
+  }
+}
+
+/* ============ MODAL ============ */
+document.querySelectorAll('.buy').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const card=btn.closest('.card');
+    let dp=card.dataset.currentPrice?`S/.${card.dataset.currentPrice}`:'S/.'+card.querySelector('.price').innerText.replace('S/.','');
+    if(card.dataset.price==="CONSULTA")dp="CONSULTAR";
+    document.getElementById('m-title').innerText=btn.dataset.name;
+    document.getElementById('m-price').innerText=dp;
+    document.getElementById('m-confirm').href=btn.dataset.link;
+    document.getElementById('modal').style.display='flex';
+  });
+});
+function closeModal(){document.getElementById('modal').style.display='none';}
+window.onclick=e=>{if(e.target===document.getElementById('modal'))closeModal();};
+
+/* ============ BURBUJA DE COMPRA (junto al león) ============ */
+const toast=document.getElementById('toast');
+let lastIdx=-1;
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+function fakePhone(){return `9${rnd(10,99)} ${rnd(0,9)}***`;}
+function showToast(){
+  let i;do{i=rnd(0,P.length-1);}while(i===lastIdx&&P.length>1);
+  lastIdx=i;
+  const p=P[i];
+  document.getElementById('t-ico').textContent=p.emo;
+  document.getElementById('t-txt').innerHTML=`<b>${fakePhone()}</b> compró ${p.notif}<small>hace ${rnd(1,9)} min</small>`;
+  toast.classList.add('on');
+  setTimeout(()=>toast.classList.remove('on'),DURACION_NOTIF_MS);
+}
+if(NOTIFICACIONES_ACTIVAS){
+  setTimeout(()=>{showToast();setInterval(showToast,INTERVALO_NOTIF_MS);},PRIMERA_NOTIF_MS);
+}
+document.getElementById('avatar').addEventListener('click',()=>{
+  document.querySelector('.grid').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
